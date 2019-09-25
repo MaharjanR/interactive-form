@@ -31,7 +31,7 @@ $colorOption.hide();
 $colorLabel.text('Please select a T-shirt theme');
 
 // when other is selected show the input text
-$jobRole.on('click', function(){
+$jobRole.on('change', function(){
     const $jobRoleVal = $jobRole.val();
 
     if($jobRoleVal === 'other'){
@@ -39,7 +39,7 @@ $jobRole.on('click', function(){
     }
 });
 
-$design.on('click', function(){
+$design.on('change', function(){
     const $designValue = $design.val();
     console.log($designValue);
 
