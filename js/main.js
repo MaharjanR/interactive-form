@@ -22,12 +22,12 @@ const $otherTitle = $('#other-title');
 const $jobRole= $('#title');
 const $design = $('#design');
 const $colorLabel = $('label[for="color"]');
-const $colorOption = $('#color');
+const $color = $('#color');
 
 // setting focus, hide and values when the page loads
 $('#name').focus();
 $otherTitle.hide();
-$colorOption.hide();
+$color.hide();
 $colorLabel.text('Please select a T-shirt theme');
 
 // when other is selected show the input text
@@ -39,16 +39,14 @@ $jobRole.on('change', function(){
     }
 });
 
-$design.on('change', function(){
+$design.on('change', function(e){
     const $designValue = $design.val();
     console.log($designValue);
 
-    if($designValue === 'js puns'){
-        $colorOption.val('cornflowerblue').show();
-        $colorOption.val('darkslategrey').show();
-        $colorOption.val('gold').show();
-        $colorOption.val('tomato').hide();
-        $colorOption.val('steelblue').hide();
-        $colorOption.val('dimgrey').hide();
-    }
+    console.log($(e.target).val());
+
+    $color.each(function(i,colorOption){
+        console.log(i);
+        console.log(colorOption);
+    })
 });
