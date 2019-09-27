@@ -39,14 +39,13 @@ $jobRole.on('change', function(){
     }
 });
 
-$design.on('change', function(e){
+$design.on('change', function(){
     const $designValue = $design.val();
     console.log($designValue);
     $color.show();
-    console.log($color.val());
 
     if($designValue === 'js puns'){
-        
+        $('#color option:eq(3)').removeAttr('selected');
         $('#color option:eq(0)').removeClass('is-hidden');
         $('#color option:eq(1)').removeClass('is-hidden');
         $('#color option:eq(2)').removeClass('is-hidden');
@@ -55,12 +54,16 @@ $design.on('change', function(e){
         $('#color option:eq(5)').addClass('is-hidden');
     
     }
-    else{
+    else if($designValue === 'heart js'){
+        $('#color option:eq(3)').attr('selected', true);
         $('#color option:eq(0)').addClass('is-hidden');
         $('#color option:eq(1)').addClass('is-hidden');
         $('#color option:eq(2)').addClass('is-hidden');
         $('#color option:eq(3)').removeClass('is-hidden');
         $('#color option:eq(4)').removeClass('is-hidden');
         $('#color option:eq(5)').removeClass('is-hidden');
+    }
+    else{
+        $color.hide(); 
     }
 });
