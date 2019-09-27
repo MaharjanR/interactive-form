@@ -64,14 +64,14 @@ $checkboxes.on('change', function(e){
 
         if($clickedType === $checkboxType && click !== $checkboxes[i]){
             
-            if($(checkbox).attr('disabled')){    
-                totalPrice += dataCost;
+            if($(checkbox).attr('disabled')){   
+                console.log('not working');
+                totalPrice -= dataCost;
                 console.log(totalPrice);            
                 $(checkbox).attr('disabled', false);
             }
 
             else{
-                totalPrice -= dataCost;
                 console.log(totalPrice);    
                 $(checkbox).attr('disabled', true);
             }
@@ -85,4 +85,6 @@ $checkboxes.on('change', function(e){
             console.log('--------------------------');
         }
     });
+
+    console.log(totalPrice);
 });
