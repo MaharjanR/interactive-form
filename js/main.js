@@ -23,6 +23,8 @@ const $jobRole= $('#title');
 const $design = $('#design');
 const $colorLabel = $('label[for="color"]');
 const $color = $('#color');
+const $checkboxes = $('.activities input');
+console.log($checkboxes);
 
 // setting focus, hide and values when the page loads
 $('#name').focus();
@@ -66,4 +68,22 @@ $design.on('change', function(){
     else{
         $color.hide(); 
     }
+});
+
+
+$checkboxes.on('change', function(e){
+
+    const $clicked = $(e.target);
+    const $clickedType = $clicked.attr('data-day-and-time');
+
+    $checkboxes.each(function(i, checkbox){
+        const $checkboxType = $(checkbox).attr('data-day-and-time');
+
+        if($clickedType === $checkboxType && $clicked !== $checkboxes[i]){
+            console.log($clickedType);
+            const sameHourCheckbox = $checkboxes[i];
+            console.log($checkboxes[i].attr('disabled',true));
+            // $checkboxes[i].attr('disabled', true);
+        }
+    });
 });
