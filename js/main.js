@@ -42,11 +42,25 @@ $jobRole.on('change', function(){
 $design.on('change', function(e){
     const $designValue = $design.val();
     console.log($designValue);
+    $color.show();
+    console.log($color.val());
 
-    console.log($(e.target).val());
-
-    $color.each(function(i,colorOption){
-        console.log(i);
-        console.log(colorOption);
-    })
+    if($designValue === 'js puns'){
+        
+        $('#color option:eq(0)').removeClass('is-hidden');
+        $('#color option:eq(1)').removeClass('is-hidden');
+        $('#color option:eq(2)').removeClass('is-hidden');
+        $('#color option:eq(3)').addClass('is-hidden');
+        $('#color option:eq(4)').addClass('is-hidden');
+        $('#color option:eq(5)').addClass('is-hidden');
+    
+    }
+    else{
+        $('#color option:eq(0)').addClass('is-hidden');
+        $('#color option:eq(1)').addClass('is-hidden');
+        $('#color option:eq(2)').addClass('is-hidden');
+        $('#color option:eq(3)').removeClass('is-hidden');
+        $('#color option:eq(4)').removeClass('is-hidden');
+        $('#color option:eq(5)').removeClass('is-hidden');
+    }
 });
