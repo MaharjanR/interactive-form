@@ -58,22 +58,31 @@ $checkboxes.on('change', function(e){
     const $clickedType = $clicked.attr('data-day-and-time');
     const $dataCost = $clicked.attr('data-cost');
     const dataCost = Number($dataCost.replace(/[^0-9.-]+/g,""));
-
     $checkboxes.each(function(i, checkbox){
         
         const $checkboxType = $(checkbox).attr('data-day-and-time');
 
         if($clickedType === $checkboxType && click !== $checkboxes[i]){
-            totalPrice += dataCost;
-
-            console.log(totalPrice);
-            if($(checkbox).attr('disabled')){                
+            
+            if($(checkbox).attr('disabled')){    
+                totalPrice += dataCost;
+                console.log(totalPrice);            
                 $(checkbox).attr('disabled', false);
             }
+
             else{
+                totalPrice -= dataCost;
+                console.log(totalPrice);    
                 $(checkbox).attr('disabled', true);
             }
 
+        }
+        else if(click === $checkboxes[i]){
+            console.log(click);
+            console.log($checkboxes[i]);
+            totalPrice += dataCost;
+            console.log(totalPrice);
+            console.log('--------------------------');
         }
     });
 });
