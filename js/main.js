@@ -18,12 +18,14 @@ $colorLabel.hide();
 // when other is selected show the input text
 $jobRole.on('change', function(){
     const $jobRoleVal = $jobRole.val();
+    console.log($jobRoleVal);
 
     if($jobRoleVal === 'other'){
         $otherTitle.show();
     }
 });
 
+// displays the colour depending upon the selection of design
 $design.on('change', function(){
     const $designValue = $design.val();
     $color.show();
@@ -53,6 +55,7 @@ $design.on('change', function(){
     }
 });
 
+// creating a div which holds the total price 
 let div = document.createElement('div')
 $activities.append(div);
 
@@ -64,6 +67,7 @@ $checkboxes.on('change', function(e){
     const $dataCost = $clicked.attr('data-cost');
     const dataCost = Number($dataCost.replace(/[^0-9.-]+/g,""));
 
+    // depending upon the checkbox adds the price or subtracts the price from total amount
     if($clicked.prop('checked') === true){
         totalPrice += dataCost;
     }
@@ -71,7 +75,10 @@ $checkboxes.on('change', function(e){
         totalPrice -= dataCost;
     }
 
+    // inserting the total price text on the html
     div.innerHTML = '<strong>Total Amount: </strong>' + totalPrice;
+
+    // disabling the same time checkbox
     $checkboxes.each(function(i, checkbox){
         
         const $checkboxType = $(checkbox).attr('data-day-and-time');
@@ -88,7 +95,6 @@ $checkboxes.on('change', function(e){
 
         }
     });
-    isValidActivity($clicked);
     
 });
 
@@ -101,6 +107,7 @@ $('.bitcoin').addClass('is-hidden');
 // display cerdit card div
 $('.credit-card').removeClass('is-hidden');
 
+// selecting the second option and disabling the first option
 $('#payment option:eq(1)').attr('selected', true);
 $('#payment option:eq(0)').attr('disabled', true);
 $paymentOption.on('change', function(e){
@@ -139,11 +146,13 @@ $paymentOption.on('change', function(e){
 
 // Form validation
 
+// adding error after name inputs
 const $name = $('#name');
 const nameError = document.createElement('div');
 $(nameError).addClass('error');
 $name.after(nameError);
 
+// validating the name inputs
 const isValidName = function(){
 
    if(/[^\d]/.test($name.val())){
@@ -158,12 +167,16 @@ const isValidName = function(){
 }
 
 
+// adding email errors after email input
 const $email = $('#mail');
 const emailError = document.createElement('div');
 $(emailError).addClass('error');
 $email.after(emailError);
+
+// creating a variable for email regex
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+// validating email input
 const isValidEmail = function(){
 
     if(emailRegex.test($email.val())){
@@ -179,27 +192,40 @@ const isValidEmail = function(){
 }
 
 
+// adding errors on the activities
 const activitiesError = document.createElement('div');
 $activities.append(activitiesError);
 $(activitiesError).addClass('error');
 
-const isValidActivity = function(click){
+//checking for errors
+const isValidActivity = function(){
 
-    if($(click).prop('checked') === true){
-        activitiesError.textContent = '';
-        return true;
+    const activitiesInput = $('.activities input');
+    console.log(activitiesInput[2]);
+    console.log(activitiesInput[1]);
+    
+    for(let i = 0; i < activitiesInput.length; i++){
+        if($(activitiesInput[i]).prop('checked') === true){
+            console.log(activitiesInput[i]);
+            activitiesError.textContent = '';
+            return true;
+        }
+        else{
+            activitiesError.textContent = 'Please select one of the activities';
+            return false;
+        }
     }
-    else{
-        activitiesError.textContent = 'Please select one of the activities';
-        return false;
-    }
+    
+    
 }
 
+// adding errors on the ccNum
 const $ccNum = $('#cc-num');
 const ccNumError = document.createElement('div');
 $(ccNumError).addClass('error');
 $ccNum.after(ccNumError);
 
+//checking for errors on Credit card number
 const isValidccNum = function(){
 
     if(/^\d{13,16}$/.test($ccNum.val())){
@@ -213,11 +239,13 @@ const isValidccNum = function(){
     }
 }
 
+// adding errors on the zip
 const $zip = $('#zip');
 const zipError = document.createElement('div');
 $(zipError).addClass('error');
 $zip.after(zipError);
 
+//checking for errors on zipcode
 const isValidZip = function(){
 
     if(/^[0-9]{5}$/.test($zip.val())){
@@ -231,11 +259,13 @@ const isValidZip = function(){
     }
 }
 
+// adding errors on the CVV
 const $cvv = $('#cvv');
 const cvvError = document.createElement('div');
 $(cvvError).addClass('error');
 $cvv.after(cvvError);
 
+//checking for errors on CVV
 const isValidCvv = function(){
 
     if(/^\d{3}$/.test($cvv.val())){
@@ -249,17 +279,17 @@ const isValidCvv = function(){
     }
 }
 
+// calls all the isvalid funcion to check if there are errors or not
 $('form').submit(function(event) {
 
 
-    if (!isValidName() && !isValidEmail() && !isValidActivity()){
+    if (!isValidName() || !isValidEmail() || !isValidActivity()){
       event.preventDefault();
     }
   
       if ($('option[value="Credit Card"]').is(':selected')) {
-        if (!isValidccNum() && !isValidZip() && !isValidCvv()) {
+        if (!isValidccNum() || !isValidZip() || !isValidCvv()) {
           event.preventDefault();
         }
     }
-  
 });
