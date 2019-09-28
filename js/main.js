@@ -5,7 +5,7 @@ const $design = $('#design');
 const $colorLabel = $('label[for="color"]');
 const $color = $('#color');
 const $checkboxes = $('.activities input');
-
+const $activities = $('.activities');
 let totalPrice = 0;
 // setting focus, hide and values when the page loads
 $('#name').focus();
@@ -50,6 +50,7 @@ $design.on('change', function(){
     }
 });
 
+$activities.append('');
 
 $checkboxes.on('change', function(e){
 
@@ -58,33 +59,35 @@ $checkboxes.on('change', function(e){
     const $clickedType = $clicked.attr('data-day-and-time');
     const $dataCost = $clicked.attr('data-cost');
     const dataCost = Number($dataCost.replace(/[^0-9.-]+/g,""));
+
+    if($clicked.prop('checked') === true){
+        totalPrice += dataCost;
+    }
+    else{
+        totalPrice -= dataCost;
+    }
+
     $checkboxes.each(function(i, checkbox){
         
         const $checkboxType = $(checkbox).attr('data-day-and-time');
 
         if($clickedType === $checkboxType && click !== $checkboxes[i]){
             
-            if($(checkbox).attr('disabled')){   
-                console.log('not working');
-                totalPrice -= dataCost;
-                console.log(totalPrice);            
+            if($(checkbox).attr('disabled')){       
                 $(checkbox).attr('disabled', false);
             }
 
-            else{
-                console.log(totalPrice);    
+            else{ 
                 $(checkbox).attr('disabled', true);
             }
 
         }
-        else if(click === $checkboxes[i]){
-            console.log(click);
-            console.log($checkboxes[i]);
-            totalPrice += dataCost;
-            console.log(totalPrice);
-            console.log('--------------------------');
-        }
     });
 
     console.log(totalPrice);
+    
+    return totalPrice;
+    
 });
+
+console.log(totalPrice);
