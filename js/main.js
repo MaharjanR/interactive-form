@@ -50,7 +50,7 @@ $design.on('change', function(){
     }
 });
 
-$activities.append('');
+$activities.append('<strong>Total Amount: </strong>' + totalPrice);
 
 $checkboxes.on('change', function(e){
 
