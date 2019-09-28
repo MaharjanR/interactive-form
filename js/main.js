@@ -18,7 +18,6 @@ $colorLabel.hide();
 // when other is selected show the input text
 $jobRole.on('change', function(){
     const $jobRoleVal = $jobRole.val();
-    console.log($jobRoleVal);
 
     if($jobRoleVal === 'other'){
         $otherTitle.show();
@@ -153,7 +152,7 @@ $(nameError).addClass('error');
 $name.after(nameError);
 
 // validating the name inputs
-const isValidName = function(){
+function isValidName(){
 
    if(/[^\d]/.test($name.val())){
         nameError.textContent = '';
@@ -201,22 +200,24 @@ $(activitiesError).addClass('error');
 const isValidActivity = function(){
 
     const activitiesInput = $('.activities input');
-    console.log(activitiesInput[2]);
-    console.log(activitiesInput[1]);
+    let error = 0;
     
     for(let i = 0; i < activitiesInput.length; i++){
         if($(activitiesInput[i]).prop('checked') === true){
-            console.log(activitiesInput[i]);
             activitiesError.textContent = '';
-            return true;
         }
         else{
-            activitiesError.textContent = 'Please select one of the activities';
-            return false;
+            error += 1;
         }
     }
-    
-    
+
+    if(error < 7){
+        return true;
+    }
+    else{
+        activitiesError.textContent = 'Please select one of the activities';
+        return false;
+    }
 }
 
 // adding errors on the ccNum
@@ -279,17 +280,33 @@ const isValidCvv = function(){
     }
 }
 
+
+
 // calls all the isvalid funcion to check if there are errors or not
 $('form').submit(function(event) {
 
-
-    if (!isValidName() || !isValidEmail() || !isValidActivity()){
+    if (!isValidName()){
       event.preventDefault();
     }
-  
-      if ($('option[value="Credit Card"]').is(':selected')) {
-        if (!isValidccNum() || !isValidZip() || !isValidCvv()) {
-          event.preventDefault();
+    
+    if(!isValidEmail()){
+        event.preventDefault();
+    }
+    if(!isValidActivity()){
+        event.preventDefault();
+    }
+
+    if ($('option[value="Credit Card"]').is(':selected')) {
+
+        if (!isValidccNum()) {
+            event.preventDefault();
+        }
+        if(!isValidZip()){
+            event.preventDefault();
+        }
+        if(!isValidCvv()){
+            event.preventDefault();
         }
     }
 });
+
