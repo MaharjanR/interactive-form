@@ -275,10 +275,11 @@ const isValidCvv = function(){
     }
 
     else{
-        cvvError.textContent = 'Please enter a valid zip number';
+        cvvError.textContent = 'Please enter a valid CVV';
         return false;
     }
 }
+
 
 
 
@@ -310,3 +311,13 @@ $('form').submit(function(event) {
     }
 });
 
+
+$('#name').on('keyup', isValidName);
+$('#mail').on('keyup', isValidEmail);
+$('#mail').on('focus', isValidEmail);
+$('#cc-num').on('keyup', isValidccNum);
+$('#cc-num').on('focus', isValidccNum);
+$('#zip').on('keyup', isValidZip);
+$('#zip').on('focus', isValidZip);
+$('#cvv').on('keyup', isValidCvv);
+$('#cvv').on('focus', isValidCvv);
